@@ -1,0 +1,22 @@
+.header {
+    position: fixed;
+}
+.nav-bar {
+    height: 100vh;
+    background-color: #212529;
+}
+
+.content {
+    padding-top: 20px;
+    margin-left: 350px;
+    margin-right: 100px
+px
+;
+}
+/* #header-div {
+    width: 200px;
+} */
+
+/* a{
+    text-decoration: none;
+} */
