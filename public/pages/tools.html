@@ -1,19 +1,102 @@
 <section class="content">
+    <h1>Tools</h1>
 
-    <div>
-        <p>
-            asd
-        </p>
-        <p>
-            asd
-        </p>
+    <h5>Node</h5>
+    <p>Node is a runtime enviroment basen on javascript, but can run on a server</p>
+    <p>There are a few command associated with node which are import </p>
+    <p><code>node -v</code> which tells what version of node you're running</p>
 
-        <p> hello this is code
-            <code>
-                asdasd
-                asdasd
-            </code>
-        </p>
-    </div>
+    <p><code>node <FILE_YOU_WANT_TO_RUN></code> this command runs the selected file once</p>
+    <h5>Package.json</h5>
+    <p>This JSON file is located in the root of your project. It contains the metadata of your project. The package.json
+        file is also our
+        buildtool, in which we can declare scripts to run. It is also used to declare the dependencies needed in that
+        specific project.
+        If you're running an express project you need to declare that there.
+    </p>
+
+    <h5>NPM (Node Package Manager)</h5>
+    <p>npm is used to install different packages into your node project. Using the command <code>npm i</code> followed
+        by the package you need,
+        in our case <code>express</code>, and it will be installed right in your package.json dependencies.
+    </p>
+    <p>In some cases it will be nicer to install something globally on your computer, rather than in the different
+        projects.
+        Thats the case with <code>Nodemon</code>, in which you instead use the command
+        <code>npm install -g nodemon</code> (-g for global)
+    </p>
+    <h5>Nodemon</h5>
+    <p>Nodemon is a package used as a developer tool, since it can reload your node project after every change made.
+        This is a great tool, since
+        you only have to type <code>nodemon <FILE_TO_RUN></code> instead of running <code>node <FILE_TO_RUN></code>
+        everytime a change is commited.</p>
+    <p>If you want to customise what nodemon listens on, you can create a nodemon.json file at the root of your project.
+        Here you specify the
+        file extension in which you want changes listened to.
+    </p>
+    <h5>Express</h5>
+
+    <p>Express is a node web application framework, which helps you build a backend for a fullstack application using
+        node and express.</p>
+    <p>Before getting started with express make sure you've downloaded npm and node.</p>
+    <p>To install express you need an empty node project, in which you create a file called package.json. In here simply
+        put <code>{ }</code>
+        and run the command <code>npm i express</code></p>
+
+        <p>Express will then be installed and you can then create your first express project</p>
+
+        <p>This is an example of a simple web application using express</p>
+
+        <pre class="line-numbers">
+            <code class="language-javascript">const express = require("express"); //This imports express via the require keyword
+                const app = express(); //This initializes express and saves it as an variable called app, which can then later be used
+                
+                //Create an endpoint with app.get
+                app.get("/", (req, res) =>{
+                    res.send("Hello World");    //Send a string to the web application
+                })
+                
+                //Open the server on a port of your choosing
+                app.listen(3000, () =>{ 
+                    console.log("Server is running on port ", 3000);
+                });</code>
+        </pre>
+
+    <h5>fs</h5>
+    <p>fs stands for file system and is used to read from and write to files.</p>
+    <pre class="line-numbers">
+        <code class="language-javascript">const fs = require("fs"); // import fs via require
+            const nav = fs.readFileSync("./public/components/nav.html").toString(); // use fs to read the nav.html file</code>
+    </pre>
+    <h5>Heroku</h5>
+    <p>Heroku is a cloud platform used to deploy all kind of web applications. It is free to use and easy to deploy unto.</p>
+    <p>Before use, navigate to the heroku <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up">site</a>, 
+        and download their CLI. This will allow you to deploy on their site, with a few tweaks to your code and a couple of terminal commands.</p>
+
+        <p>The first thing you need to do is add a script into your package.json file:</p>
+        <pre class="line-numbers">
+            <code class="language-javascript">"scripts": {
+                "start": "node <FILE_TO_RUN>"
+            }</code>
+            </pre> 
+
+            <p>The next step is to change the port your application listens to, so change app.listen in app.js to the following</p>
+
+            
+            <pre class="line-numbers">
+                <code class="language-javascript">app.listen(process.env.PORT || 3000, function(){
+                    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+                });</code>
+                </pre> 
+
+                <p>This was the tweaks needed in your code, now make sure your project is pushed so youre up to date</p>
+
+                <p>Run the command <code>heroku create</code> to create the heroku app, and push your github repo to it <code>git push heroku main</code></p>
+                <p>If the project is a subfolder on your github app run the following command instead <code>git subtree push --prefix <PATH_TO_SUBFOLDER_PROJECT> heroku master</code></p>
+                    <p>If you need to take your project down from heroku again simply run the following:</p>
+                    <code>git remote rm heroku</code>
+                    <code>heroku git:remote -a <NAME_OF_APP></code>
+        
+
 </section>
 </div>

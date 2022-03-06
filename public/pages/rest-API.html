@@ -1,19 +1,168 @@
 <section class="content">
 
     <div>
-        <p>
-            asd
-        </p>
-        <p>
-            asd
-        </p>
+        <h1>REST API</h1>
 
-        <p> hello this is code
-            <code>
-                asdasd
-                asdasd
-            </code>
-        </p>
+        <p>A REST API is a way to transfer data via servers and clients. It is commonly used to parse JSON objects which
+            contains the data needed.</p>
+        <p>In REST API's there is a few commonly used conventions, created so if everyone follows them, every dev knows
+            what is going on where.</p>
+
+        <h6>REST URL's naming conventions (Endpoints)</h3>
+            <ul>
+                <li>All requests of the same type should share the same name(example below)</li>
+                <li>Never use the CRUD functionalitys names in the URL</li>
+                <li>Always use nouns</li>
+                <li>Do not use underscore (_) or slashes (/)</li>
+                <li>Do not use uppercasing, so lowercase letters only</li>
+            </ul>
+
+            <p>The order of the requests is also a convention and is shown below</p>
+            <ul>
+                <li>GET (everything)</li>
+                <li>GET (specific data by id)</li>
+                <li>POST</li>
+                <li>PUT</li>
+                <li>PATCH</li>
+                <li>DELETE</li>
+            </ul>
+
+            <p>Here is an example of a design only REST API</p>
+            <table class="table table-primary" id="table">
+                <thead>
+                    <tr>
+                        <th>HTTP method</th>
+                        <th>Endpoint name</th>
+                        <th>Functionality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GET</td>
+                        <td>/fruits</td>
+                        <td>Get all ressources from the collection</td>
+                    </tr>
+
+                    <tr>
+                        <td>GET</td>
+                        <td>/fruits{id}</td>
+                        <td>Get a specific ressource from the collection</td>
+                    </tr>
+
+                    <tr>
+                        <td>POST</td>
+                        <td>/fruits</td>
+                        <td>Create a new ressource in the collection</td>
+                    </tr>
+
+                    <tr>
+                        <td>PUT</td>
+                        <td>/fruits{id}</td>
+                        <td>Update a specific ressource in the collection</td>
+                    </tr>
+
+                    <tr>
+                        <td>PATCH</td>
+                        <td>/fruits{id}</td>
+                        <td>Partially update a specific ressource in the collection</td>
+                    </tr>
+
+                    <tr>
+                        <td>DELETE</td>
+                        <td>/fruits{id}</td>
+                        <td>Delete a specific ressource in the collection</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h6>Heres an example of how to create a CRUD'able REST API, and serving it with express</h6>
+            <p>How to set up your node project with express will be shown under the tab <a href="/tools">tools</a></p>
+            <p>In this example i wont be working with a database, so all of the data will be stored locally in an array:
+            </p>
+
+            <pre class="line-numbers">
+            <code class="language-javascript">const fruits = [
+                 {id: 1, title: "banana"},
+                 {id: 2, title: "avocado"},
+                 {id: 3 title: "pineapple"}
+                ];</code>
+        </pre>
+
+            An endpoint via express is created by the get method which comes from express. It takes an endpoint and a
+            callback function as parameters:
+            <pre class="line-numbers">
+            <code class="language-javascript"> app.get("/", (req,res) => {
+                res.send("Hello World");
+              });</code>
+        </pre>
+
+            <p>The callback function uses a request and a response to carry out the wanted functionality.</p>
+
+            <p>Below i will show code examples of how to implement the REST API i designed at the start of the page:</p>
+
+            <p>Get all ressources from the collection</p>
+            <pre class="line-numbers">
+            <code class="language-javascript"> app.get("/fruits", (req,res) => {
+                res.send({data: fruits});
+              });</code>
+        </pre>
+
+        <p>Get a specific ressource from the collection</p>
+            <pre class="line-numbers">
+            <code class="language-javascript"> app.get("/fruits/:id", (req,res) => {
+            const foundFruit = fruits.find(fruit => fruit.id === Number(req.params.id));
+            foundFruit ? res.send({data: foundFruit}) : res.sendStatus(404).send({})
+            });</code>
+        </pre>
+
+        <p>Create a new ressource in the collection</p>
+            <pre class="line-numbers">
+            <code class="language-javascript">app.post("/fruits", (req, res) => {
+                const fruitToCreate = req.body;
+                fruitToCreate.id = ++CURRENT_ID;
+                fruits.push(fruitToCreate);
+
+                res.send({ data: fruitToCreate });
+             });</code>
+        </pre>
+
+        <p>Update a specific ressource in the collection</p>
+            <pre class="line-numbers">
+            <code class="language-javascript">app.patch("/fruits/:id", (req, res) => {
+                const foundFruitIndex = fruits.findIndex(fruit => fruit.id === Number(req.params.id));
+                if (foundFruitIndex !== -1) {
+                    const Fruit = fruits[foundFruitIndex];
+                    const fruitToUpdateWith = { ...foundFruit, ...req.body, id: foundFruit.id };
+                    fruits[foundFruitIndex] = fruitToUpdateWith;
+                    res.send({ data: fruitToUpdateWith });
+                } else {
+                    res.status(404).send({});
+                } 
+            });</code>
+        </pre>
+
+        <p>Partially update a specific ressource in the collection</p>
+            <pre class="line-numbers">
+            <code class="language-javascript">app.put("/fruits/:id", (req, res) => {
+                const foundFruit = fruits.find(fruit => fruit.id === Number(req.params.id));
+                foundFruit ? fruits[foundFruit.id-1] = req.body : res.sendStatus(404).send({});
+                res.send({});
+            });</code>
+        </pre>
+
+        <p>Delete a specific ressource in the collection</p>
+            <pre class="line-numbers">
+            <code class="language-javascript">app.delete("/fruits/:id", (req, res) => {
+                const foundFruitIndex = fruits.findIndex(fruit => fruit.id === Number(req.params.id));
+                if (foundFruitIndex !== -1) {
+                    fruits.splice(foundFruitIndex, 1);
+                    res.send({ });
+                } else {
+                    res.status(404).send({ });
+                }
+            });</code>
+        </pre>
+
     </div>
 </section>
 </div>

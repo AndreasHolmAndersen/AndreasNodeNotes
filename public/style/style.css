@@ -3,20 +3,31 @@
 }
 .nav-bar {
     height: 100vh;
-    background-color: #212529;
+    background-color: #e3f2fd; 
+}
+
+.nav-link.active {
+   background-color: #3e4e7e88 !important;
 }
 
 .content {
     padding-top: 20px;
     margin-left: 350px;
-    margin-right: 100px
-px
-;
+    margin-right: 100px;
+    margin-bottom: 50px;
 }
-/* #header-div {
-    width: 200px;
-} */
 
-/* a{
+.nav-headline {
+    padding: 20px;
     text-decoration: none;
-} */
+    
+}
+#table {
+    border: rgba(0, 0, 0, 0.363) 1px solid;
+}
+.home-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

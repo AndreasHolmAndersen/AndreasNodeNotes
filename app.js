@@ -13,11 +13,11 @@ const restApi = fs.readFileSync("./public/pages/rest-API.html").toString();
 const ssr = fs.readFileSync("./public/pages/SSR.html").toString();
 const tools = fs.readFileSync("./public/pages/tools.html").toString();
 
-const homePage = nav.replace("%%DOCUMENT_TITLE%%", "Home") + home + footer;
-const javascriptTheoryPage = nav.replace("%%DOCUMENT_TITLE%%", "Javascript Theory") + javascriptTheory + footer;
-const restApiPage = nav.replace("%%DOCUMENT_TITLE%%", "Rest API") + restApi + footer;
-const ssrPage = nav.replace("%%DOCUMENT_TITLE%%", "SSR") + ssr + footer;
-const toolsPage = nav.replace("%%DOCUMENT_TITLE%%", "Tools") + tools + footer;
+const homePage = nav.replace("%%HOME%%", "active") + home + footer;
+const javascriptTheoryPage = nav.replace("%%JAVASCRIPT_THEORY%%", "active") + javascriptTheory + footer;
+const restApiPage = nav.replace("%%REST_API%%", "active") + restApi + footer;
+const ssrPage = nav.replace("%%SSR%%", "active") + ssr + footer;
+const toolsPage = nav.replace("%%TOOLS%%", "active") + tools + footer;
 
 app.get("/", (req,res) => {
   res.send(homePage);
@@ -44,3 +44,5 @@ app.get("/tools", (req,res) => {
 app.listen(process.env.PORT || 8080, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
+
+  

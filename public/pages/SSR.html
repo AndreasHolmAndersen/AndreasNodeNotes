@@ -1,19 +1,80 @@
 <section class="content">
+    <h1>Server Side Rendering (SSR) using express</h1>
 
-    <div>
-        <p>
-            asd
-        </p>
-        <p>
-            asd
-        </p>
+    <p>Server Side Rendering or SSR is, as the name implies, the side being rendered by the server instead of the
+        client.
+        This allows the webpage to load faster, and optimize the webpage for search engines, commonly called SEO (Search
+        Engine Optimization).
+        The different search engines has these website spiders which takes a quick look at the webpages to get
+        information (keywords etc).
+        If the side is then rendered in the client, the crawler or spider just takes a snapshot of a blank page without
+        any information, but if the
+        side is rendered on the server, the crawler gets all the information needed to rank the website on the search
+        engine.
+    </p>
 
-        <p> hello this is code
-            <code>
-                asdasd
-                asdasd
-            </code>
-        </p>
-    </div>
+    <h6>SSR with express</h6>
+
+    <p>When you want your pages to get rendered on the server, you need a folder to store them.
+        The common convention is a public folder, created at the root of your node project.
+        In here you store all of your different files needed to create a frontend webpage (.html, .js, .css and so on).
+        In order to access these files you need to let express know where to look for them. This is done by the
+        following oneliner</p>
+
+    <pre class="line-numbers">
+        <code class="language-javascript">app.use(express.static("public"));</code>
+    </pre>
+
+    <p>An example of a website rendered on the server, with everything included could look like the following:</p>
+
+    <pre class="line-numbers">
+        <code class="language-javascript">const express = require("express");
+            const app = express();
+            const fs = require("fs");
+                
+            app.use(express.static("public"));
+                
+            const nav = fs.readFileSync("./public/components/nav.html").toString();
+            const footer = fs.readFileSync("./public/components/footer.html").toString();
+            
+            const home = fs.readFileSync("./public/pages/home.html").toString();
+            const javascriptTheory = fs.readFileSync("./public/pages/javascript-theory.html").toString();
+            const restApi = fs.readFileSync("./public/pages/rest-API.html").toString();
+            const ssr = fs.readFileSync("./public/pages/SSR.html").toString();
+            const tools = fs.readFileSync("./public/pages/tools.html").toString();
+                
+            const homePage = nav.replace("%%HOME%%", "active") + home + footer;
+            const javascriptTheoryPage = nav.replace("%%JAVASCRIPT_THEORY%%", "active") + javascriptTheory + footer;
+            const restApiPage = nav.replace("%%REST_API%%", "active") + restApi + footer;
+            const ssrPage = nav.replace("%%SSR%%", "active") + ssr + footer;
+            const toolsPage = nav.replace("%%TOOLS%%", "active") + tools + footer;
+                
+            app.get("/", (req,res) => {
+              res.send(homePage);
+            });
+                
+            app.get("/javascriptTheory", (req,res) => {
+                res.send(javascriptTheoryPage);
+            });
+                
+            app.get("/restAPI", (req,res) => {
+              res.send(restApiPage);
+            });
+                
+            app.get("/SSR", (req,res) => {
+              res.send(ssrPage);
+            });
+                
+            app.get("/tools", (req,res) => {
+              res.send(toolsPage);
+            });
+                
+                
+                
+            app.listen(process.env.PORT || 8080, function(){
+                console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+            });</code>
+            </pre>
+
 </section>
 </div>

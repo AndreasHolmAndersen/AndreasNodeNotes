@@ -1,19 +1,107 @@
 <section class="content">
+    <h1>Javascript Theory</h1>
+    
+    <h5>Declaring variables in Javascript</h5>
+    <p>It is possible to declare a variable with 3 different keywords. Each keyword has a correct use. There is:
+        <ul>
+            <li><code>let</code></li>
+            <li><code>const</code></li>
+            <li><code>var</code></li>
+        </ul>
+        let is used when assigning a variable that might change value in the future.
+        <br>
+        const is used when assigning a variable that only needs to be initialized once.
+        <br>
+        var is a nogo, when assigning variables since it doesnt care about scope, and that is something that we dont want to work with
+    </p>
 
-    <div>
-        <p>
-            asd
-        </p>
-        <p>
-            asd
-        </p>
+    <h5>Datatypes in Javascript</h5>
+    <p>Javascript as a language is not type strong. Which means you dont have to declare a type,
+         the same way you would in Java etc. It's types are also dynamic, meaning the same variable can store different types of data:</p>
+    <pre class="line-numbers">
+        <code class="language-javascript">let someVariable; //here someVariable is undefined
+            someVariable = 5; // her someVariable is a Number
+            someVariable = "Andreas"; // here someVariable is a String
+            someVariable = true; // here someVariable is a Boolean
+            const groceries = ["Milk", "Eggs", "CatFood"]; // here groceries is an Array
+            const groceries = {numberOfItems: 10, priceTotal: 250, priceAvg: 25}; // here groceries is an Object</code> 
+    </pre>
 
-        <p> hello this is code
-            <code>
-                asdasd
-                asdasd
-            </code>
-        </p>
-    </div>
+    <h5>Hoisting</h5>
+    <p>Hoisting is a principle of always moving declarations to the top of the current scope. Either to the top of scope inside of a method, 
+        if the variable is declared there, or to the top of the scope in the entire script
+    </p>
+    <pre class="line-numbers">
+        <code class="language-javascript">x = 5;
+        console.log(x); //This will still print, even though the x is first declared on the line below, because of hoisting
+        let x;
+        </code> 
+    </pre>
+    
+    <h5>Functions in Javascript</h5>
+    <p>Functions are "variables" with a functionality, and is a great tool to avoid duplicating code.</p>
+    <pre class="line-numbers">
+        <code class="language-javascript">function functionName(parameter1, parameter2, parameterN){
+            //This is the functionality of the function, and can be whatever you desire
+        }</code>
+    </pre>
+
+    <h5>Callback functions in Javascript</h5>
+    <p>A callback function, like the name somewhat implies, is a function getting called after a priveous function is finished executing. 
+        This is very useful in javascript, as javascript is asyncronoush, and doesnt wait until something is done running before running the next thing.
+    </p>
+    <pre class="line-numbers">
+        <code class="language-javascript">app.get("/", (req, res) => {
+                res.send("Hello world"); 
+        }); //In this example, the function res.send doesnt execute until the app.get is executed</code>
+    </pre>
+
+    <h5>Arrays in Javascript</h5>
+    <p>An array in javascript is a collection of either simple datatypes like strings or int, sorted by an 0-index. 
+        Arrays can also store objects. And in either case have a lot of different useful methods connected to it.</p>
+    <pre class="line-numbers">
+        <code class="language-javascript">const arrayOfSimpleDatatypes = ["Andreas", 2, true, 10.5, undefined];
+        const ArrayOfObjects = [
+        { Name: "Andreas", Age: 24, Nationality: "Danish" },
+        { Name: "RandomName", Age: 0, Nationality: undefined }
+        ];
+        
+        const diet = ["cucumber", "tomato", "Salad"]; // declaring a new array array
+        diet.push("pizza") // add a pizza element to an array
+        diet.pop(); // removes the last item of an array
+        diet.shift(); // removes the first element and "moves" all other elements to a lower index 1 lower than they were before
+        diet.lenght(); // returns the length of the array
+        diet.splice(1,2,"fish","chicken") // (index where to add element(s), how many elements to remove, new elements to add)
+        //The splice method also returns the removed items</code>
+    </pre>
+
+    <h5>Loops in Javascript</h5>
+    <p>It is possible to use loops in javascript <code>for & while</code>, but nowadays loops is getting outdate, they're slower and more errorprone.
+    It is therefore recommended to use the array methods instead, which is quicker and more functional</p>
+    <p>Loops should only be used when the intention is to iterate through each object</p>
+    <pre class="line-numbers">
+        <code class="language-javascript">const carBatteries = [0.3, 0.6, 0.4, 0.1, 0.5, 0.7 0.9, 0.2, 0.8]; //declaring an array
+        carBatteries.forEach(function(value, index){console.log(`${value} : ${index}`)}); // prints out each battery and index using forEach a loop</code>
+    </pre>
+
+    <h5>Spread operator</h5>
+    <p>The spread operator in Javascript has the syntax of 3 dots (...), and it allows us copy all or only part of an array or an object into another object or array
+    </p>
+    <p>In the example below the spread operator is used in the HTTP patch method, since we aren't necessarrily updating everything in the specific object</p>
+    
+    <pre class="line-numbers">
+        <code class="language-javascript">app.patch("/fruits/:id", (req, res) => {
+            const foundFruitIndex = fruits.findIndex(fruit => fruit.id === Number(req.params.id));
+            if (foundFruitIndex !== -1) {
+                const Fruit = fruits[foundFruitIndex];
+                const fruitToUpdateWith = { ...foundFruit, ...req.body, id: foundFruit.id };
+                fruits[foundFruitIndex] = fruitToUpdateWith;
+                res.send({ data: fruitToUpdateWith });
+            } else {
+                res.status(404).send({});
+            }</code>
+    </pre>
+
+
 </section>
 </div>
