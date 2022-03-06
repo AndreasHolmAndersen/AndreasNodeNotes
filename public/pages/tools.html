@@ -3,9 +3,7 @@
 
     <h5>Node</h5>
     <p>Node is a runtime enviroment basen on javascript, but can run on a server</p>
-    <p>There are a few command associated with node which are import </p>
-    <p><code>node -v</code> which tells what version of node you're running</p>
-
+    <p>node is capable of running .js files and you can execute that with the following command:</p>
     <p><code>node <FILE_YOU_WANT_TO_RUN></code> this command runs the selected file once</p>
     <h5>Package.json</h5>
     <p>This JSON file is located in the root of your project. It contains the metadata of your project. The package.json
@@ -28,7 +26,7 @@
     <h5>Nodemon</h5>
     <p>Nodemon is a package used as a developer tool, since it can reload your node project after every change made.
         This is a great tool, since
-        you only have to type <code>nodemon <FILE_TO_RUN></code> instead of running <code>node <FILE_TO_RUN></code>
+        you only have to type <code>nodemon <FILE_YOU_WANT_TO_RUN></code> instead of running <code>node <FILE_YOU_WANT_TO_RUN></code>
         everytime a change is commited.</p>
     <p>If you want to customise what nodemon listens on, you can create a nodemon.json file at the root of your project.
         Here you specify the
@@ -36,37 +34,49 @@
     </p>
     <h5>Express</h5>
 
-    <p>Express is a node web application framework, which helps you build a backend for a fullstack application using
+    <p>Express is a node framework, which helps you build a backend for a fullstack application using
         node and express.</p>
     <p>Before getting started with express make sure you've downloaded npm and node.</p>
     <p>To install express you need an empty node project, in which you create a file called package.json. In here simply
         put <code>{ }</code>
         and run the command <code>npm i express</code></p>
 
+        <p>if you prefer to install your dependencies manually you can navigate to your package.json file and type in 
+            <pre class="line-numbers">
+                <code class="language-javascript">"dependencies": {
+                    "express": "<VERSION_OF_EXPRESS_NEEDED>"
+                  }</code>
+                </pre> 
+        </p>
+
         <p>Express will then be installed and you can then create your first express project</p>
 
         <p>This is an example of a simple web application using express</p>
 
         <pre class="line-numbers">
-            <code class="language-javascript">const express = require("express"); //This imports express via the require keyword
-                const app = express(); //This initializes express and saves it as an variable called app, which can then later be used
+            <code class="language-javascript">const express = require("express");
+                const app = express();
                 
-                //Create an endpoint with app.get
                 app.get("/", (req, res) =>{
-                    res.send("Hello World");    //Send a string to the web application
+                    res.send("Hello World");    
                 })
                 
-                //Open the server on a port of your choosing
                 app.listen(3000, () =>{ 
                     console.log("Server is running on port ", 3000);
                 });</code>
         </pre>
+        <p>Line 1 in the example above handles the importing of the newly installed experss via the keyword require</p>
+        <p>Line 2  initializes express and saves it as an variable called app, which can then later be used</p>
+        <p>Line 4-6 is the HTTP get request with the endpoint /, and et sends a string via the response</p>
+        <p>The last lines opens the server on a port </p>
+
+
 
     <h5>fs</h5>
-    <p>fs stands for file system and is used to read from and write to files.</p>
+    <p>fs stands for file system and is used to write to files and read from files.</p>
     <pre class="line-numbers">
         <code class="language-javascript">const fs = require("fs"); // import fs via require
-            const nav = fs.readFileSync("./public/components/nav.html").toString(); // use fs to read the nav.html file</code>
+            const footer = fs.readFileSync("./public/components/footer.html").toString(); // use fs to read the footer.html file</code>
     </pre>
     <h5>Heroku</h5>
     <p>Heroku is a cloud platform used to deploy all kind of web applications. It is free to use and easy to deploy unto.</p>
@@ -76,7 +86,7 @@
         <p>The first thing you need to do is add a script into your package.json file:</p>
         <pre class="line-numbers">
             <code class="language-javascript">"scripts": {
-                "start": "node <FILE_TO_RUN>"
+                "start": "node <FILE_YOU_WANT_TO_RUN>"
             }</code>
             </pre> 
 

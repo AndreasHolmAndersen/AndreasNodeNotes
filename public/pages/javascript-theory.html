@@ -20,15 +20,14 @@
          the same way you would in Java etc. It's types are also dynamic, meaning the same variable can store different types of data:</p>
     <pre class="line-numbers">
         <code class="language-javascript">let someVariable; //here someVariable is undefined
-            someVariable = 5; // her someVariable is a Number
-            someVariable = "Andreas"; // here someVariable is a String
-            someVariable = true; // here someVariable is a Boolean
+            someVariable = "Andreas"; // her someVariable is a Number
+            someVariable = 5; // here someVariable is a String
             const groceries = ["Milk", "Eggs", "CatFood"]; // here groceries is an Array
             const groceries = {numberOfItems: 10, priceTotal: 250, priceAvg: 25}; // here groceries is an Object</code> 
     </pre>
 
     <h5>Hoisting</h5>
-    <p>Hoisting is a principle of always moving declarations to the top of the current scope. Either to the top of scope inside of a method, 
+    <p>Hoisting is a principle of declarations getting moved to the top of the current scope, before execution of the code. Either to the top of scope inside of a method, 
         if the variable is declared there, or to the top of the scope in the entire script
     </p>
     <pre class="line-numbers">
@@ -51,9 +50,9 @@
         This is very useful in javascript, as javascript is asyncronoush, and doesnt wait until something is done running before running the next thing.
     </p>
     <pre class="line-numbers">
-        <code class="language-javascript">app.get("/", (req, res) => {
-                res.send("Hello world"); 
-        }); //In this example, the function res.send doesnt execute until the app.get is executed</code>
+        <code class="language-javascript">setTimeout((1000), () => {
+            console.log("Hello World"); //Here the console.log doesn't print before the timeout method is finished
+          }, timeout); </code>
     </pre>
 
     <h5>Arrays in Javascript</h5>
@@ -66,23 +65,37 @@
         { Name: "RandomName", Age: 0, Nationality: undefined }
         ];
         
-        const diet = ["cucumber", "tomato", "Salad"]; // declaring a new array array
-        diet.push("pizza") // add a pizza element to an array
-        diet.pop(); // removes the last item of an array
-        diet.shift(); // removes the first element and "moves" all other elements to a lower index 1 lower than they were before
-        diet.lenght(); // returns the length of the array
-        diet.splice(1,2,"fish","chicken") // (index where to add element(s), how many elements to remove, new elements to add)
+        const groceries = ["cucumber", "tomato", "potato"]; // declaring a new array array
+        groceries.push("steak") // add a steak element to the array
+        groceries.pop(); // removes the last item of an array
+        groceries.shift(); // removes the first element and "moves" all other elements to a lower index 1 lower than they were before
+        groceries.lenght(); // returns the length of the array
+        groceries.splice(1,2,"fish","chicken") // The first parameter refers to the index of the array, the second to how many items needs to be replaced, 
+        // and the third is the actual elements replacing
         //The splice method also returns the removed items</code>
     </pre>
 
     <h5>Loops in Javascript</h5>
-    <p>It is possible to use loops in javascript <code>for & while</code>, but nowadays loops is getting outdate, they're slower and more errorprone.
+    <p>It is possible to use loops in javascript <code>for and while</code>, but nowadays loops is getting outdate, they're slower and more errorprone.
     It is therefore recommended to use the array methods instead, which is quicker and more functional</p>
     <p>Loops should only be used when the intention is to iterate through each object</p>
+    <p>While loop</p>
     <pre class="line-numbers">
-        <code class="language-javascript">const carBatteries = [0.3, 0.6, 0.4, 0.1, 0.5, 0.7 0.9, 0.2, 0.8]; //declaring an array
-        carBatteries.forEach(function(value, index){console.log(`${value} : ${index}`)}); // prints out each battery and index using forEach a loop</code>
+        <code class="language-javascript">while (condition) {
+            // code block to be executed
+          }</code>
     </pre>
+    <p>forEach loop</p>
+    <pre class="line-numbers">
+        <code class="language-javascript">const numbers = [45, 4, 9, 16, 25];
+            let text = "";
+            for (let x in numbers) {
+              text += numbers[x];
+            }</code>
+    </pre>
+
+    
+
 
     <h5>Spread operator</h5>
     <p>The spread operator in Javascript has the syntax of 3 dots (...), and it allows us copy all or only part of an array or an object into another object or array
